@@ -1,7 +1,7 @@
 📘 .NET 8 In-Memory API
 
 A simple and clean .NET 8 Web API that demonstrates how to build CRUD endpoints using Entity Framework Core In-Memory Database.
-Perfect for learning, prototyping, testing, or showcasing API basics without the need for an external database.
+This project will be used to learn react SPA.
 
 🚀 Features
 
@@ -40,7 +40,7 @@ README.md
 This project uses EF Core’s In-Memory provider:
 
 services.AddDbContext<AppDbContext>(options =>
-    options.UseInMemoryDatabase("MyInMemoryDb"));
+    options.UseInMemoryDatabase("InMemoryDb"));
 
 What this means:
 
