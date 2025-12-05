@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using ProjectManagement.API.Data;
+using ProjectManagement.API.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,6 +11,11 @@ builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseInMemoryDatabase("InMemoryDb"));
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddTransient<ISkillService,SkillService>();
+builder.Services.AddTransient<IProfileService, ProfileService>();
+builder.Services.AddTransient<IProjectsService, ProjectService>();
+
 
 var app = builder.Build();
 

@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using ProjectManagement.API.Data;
 using ProjectManagement.API.Models;
+using ProjectManagement.API.Services;
 
 namespace ProjectManagement.API.Controllers
 {
@@ -9,13 +8,16 @@ namespace ProjectManagement.API.Controllers
     [ApiController]
     public class SkillsController : ControllerBase
     {
-        private readonly AppDbContext _db;
-        public SkillsController(AppDbContext db) => _db = db;
+        private readonly ISkillService _skillService;
+        public SkillsController(ISkillService skillService)
+        {
+            _skillService = skillService;
+        }
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Skill>>> Get()
         {
-            var skills = await _db.Skills.AsNoTracking().ToListAsync();
+            var skills = await _skillService.GetAll();
             return Ok(skills);
         }
     }

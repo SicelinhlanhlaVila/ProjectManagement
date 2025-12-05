@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using ProjectManagement.API.Data;
 using ProjectManagement.API.Models;
+using ProjectManagement.API.Services;
 
 namespace ProjectManagement.API.Controllers
 {
@@ -9,17 +8,17 @@ namespace ProjectManagement.API.Controllers
     [ApiController]
     public class ProjectsController : ControllerBase
     {
-        private readonly AppDbContext _db;
+        private readonly IProjectsService _projectsService;
 
-        public ProjectsController(AppDbContext db)
+        public ProjectsController(IProjectsService projectsService)
         {
-            _db = db;
+            _projectsService = projectsService;
         }
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Project>>> Get()
         {
-            var projects = await _db.Projects.AsNoTracking().ToListAsync();
+            var projects = await _projectsService.GetAllProjects();
             return Ok(projects);
         }
 
@@ -28,11 +27,9 @@ namespace ProjectManagement.API.Controllers
         {
             if (string.IsNullOrWhiteSpace(project.Name))
                 return BadRequest(new { error = "Project name is required." });
+            var newProject = await _projectsService.AddProject(project);
 
-            _db.Projects.Add(project);
-            await _db.SaveChangesAsync();
-
-            return CreatedAtAction(nameof(Get), new { id = project.Id }, project);
+            return CreatedAtAction(nameof(Get), new { id = newProject.Id }, newProject);
         }
 
         [HttpPut("{id:int}")]
@@ -41,15 +38,8 @@ namespace ProjectManagement.API.Controllers
             if (id != update.Id && update.Id != 0)
                 return BadRequest(new { error = "Id in URL and body must match." });
 
-            var existing = await _db.Projects.FindAsync(id);
-            if (existing == null)
-                return NotFound(new { error = $"Project with id {id} not found." });
-
-            existing.Name = update.Name;
-            existing.Description = update.Description;
-            existing.Completed = update.Completed;
-
-            await _db.SaveChangesAsync();
+            await _projectsService.EditProject(id, update);
+           
             return NoContent();
         }
     }

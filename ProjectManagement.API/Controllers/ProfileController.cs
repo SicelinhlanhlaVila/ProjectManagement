@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using ProjectManagement.API.Data;
 using ProjectManagement.API.Models;
+using ProjectManagement.API.Services;
 
 namespace ProjectManagement.API.Controllers
 {
@@ -9,13 +8,16 @@ namespace ProjectManagement.API.Controllers
     [ApiController]
     public class ProfileController : ControllerBase
     {
-        private readonly AppDbContext _db;
-        public ProfileController(AppDbContext db) => _db = db;
+       private readonly IProfileService _profileService;
+        public ProfileController(IProfileService profileService)
+        {
+            _profileService = profileService;
+        }
 
         [HttpGet]
         public async Task<ActionResult<Profile>> Get()
         {
-            var profile = await _db.Profiles.AsNoTracking().FirstOrDefaultAsync();
+           var profile = await _profileService.GetProfile();
             if (profile == null) return NotFound();
             return Ok(profile);
         }
