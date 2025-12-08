@@ -1,5 +1,6 @@
-﻿using ProjectManagement.API.Models;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using ProjectManagement.API.Models;
 
 namespace ProjectManagement.API.Data
 {
@@ -25,9 +26,14 @@ namespace ProjectManagement.API.Data
         /// </summary>
         public DbSet<Skill> Skills { get; set; } = null!;
         /// <summary>
-        /// Gets or
+        /// Gets or sets the profiles
         /// </summary>
         public DbSet<Profile> Profiles { get; set; } = null!;
+
+        /// <summary>
+        /// gets or sets the users
+        /// </summary>
+        public DbSet<User> Users { get; set; } = null!;
     }
 
     /// <summary>
@@ -70,8 +76,20 @@ namespace ProjectManagement.API.Data
                     Bio = "Passionate about building resilient backend systems."
                 });
             }
+            if (!db.Users.Any())
+            {
+                var user = new User
+                {
+                    Username = "admin"
+                };
 
-            db.SaveChanges();
+                var hasher = new PasswordHasher<User>();
+                user.PasswordHash = hasher.HashPassword(user, "Password123!");
+
+                db.Users.Add(user);
+            }
+
+                db.SaveChanges();
         }
     }
 }

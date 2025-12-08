@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using ProjectManagement.API.Models;
 using ProjectManagement.API.Services;
 
@@ -26,6 +27,7 @@ namespace ProjectManagement.API.Controllers
         /// Gets the profile
         /// </summary>
         /// <returns></returns>
+        [Authorize]
         [HttpGet]
         public async Task<ActionResult<Profile>> Get()
         {
