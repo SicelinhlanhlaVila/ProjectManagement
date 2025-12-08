@@ -8,6 +8,7 @@ using ProjectManagement.API.Services;
 using System.Reflection;
 using System.Text;
 
+var MyAllowAllOrigins = "_myAllowAllOrigins";
 var builder = WebApplication.CreateBuilder(args);
 var bearer = "Bearer";
 
@@ -83,6 +84,18 @@ builder.Services
         };
     });
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: MyAllowAllOrigins,
+                    policy =>
+                    {
+                        policy.AllowAnyOrigin()
+                              .AllowAnyHeader()
+                              .AllowAnyMethod();
+                    }
+    );
+});
+
 builder.Services.AddAuthorization();
 
 var app = builder.Build();
@@ -100,6 +113,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseCors(MyAllowAllOrigins);
 app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
