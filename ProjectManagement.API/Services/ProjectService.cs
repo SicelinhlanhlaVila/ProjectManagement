@@ -49,7 +49,9 @@ namespace ProjectManagement.API.Services
             {
                 existingProject.Name = project.Name;
                 existingProject.Description = project.Description;
-                existingProject.Completed = project.Completed;
+                existingProject.IsFinished = project.IsFinished;
+                existingProject.Tech = project.Tech;
+                existingProject.Details = project.Details;
 
                 await _db.SaveChangesAsync();
             }

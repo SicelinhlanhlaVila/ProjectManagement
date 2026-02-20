@@ -23,6 +23,21 @@
         /// <summary>
         /// Gets or sets the status
         /// </summary>
-        public bool Completed { get; set; } = false;
+        public bool Featured { get; set; } = false;
+
+        /// <summary>
+        /// checks the state of a project
+        /// </summary>
+        public bool IsFinished { get; set; } = false;
+
+        /// <summary>
+        /// list of all the tech used in the project
+        /// </summary>
+        public string[] Tech { get; set; }
+
+        /// <summary>
+        /// details of the project
+        /// </summary>
+        public string? Details { get; set; }
     }
 }

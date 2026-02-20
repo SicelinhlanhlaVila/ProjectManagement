@@ -61,8 +61,9 @@ namespace ProjectManagement.API.Data
             {
                 db.Projects.AddRange(new[]
                 {
-                    new Project { Id = 1, Name = "Website Revamp", Description = "Frontend and backend refresh", Completed = false },
-                    new Project { Id = 2, Name = "CI/CD Pipeline", Description = "Automate builds and deploys", Completed = true }
+                    new Project { Id = 1, Name = "Website Revamp", Description = "Frontend and backend refresh", IsFinished = false, Featured = false,Tech = ["blazor","C#"] },
+                    new Project { Id = 2, Name = "CI/CD Pipeline", Description = "Automate builds and deploys", IsFinished = false , Featured = true,Tech = ["c#"]},
+                    new Project { Id = 3, Name = "Portfolio", Description = "Personal portfolio built with React.", IsFinished = false , Featured = true,Tech = ["React", "TypeScript", "Vite"]},
                 });
             }
 
