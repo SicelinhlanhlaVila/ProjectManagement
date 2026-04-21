@@ -66,5 +66,22 @@ namespace ProjectManagement.API.Services
             var projects = await _db.Projects.AsNoTracking().ToListAsync();
             return projects;
         }
+
+        /// <summary>
+        /// Delete
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public async Task DeleteProject(int id)
+        {
+            var toBeDeleted = await _db.Projects.FindAsync(id);
+            if (toBeDeleted == null)
+                throw new Exception("cannot delete a project that does not exist");
+            else
+            {
+                _db.Remove(toBeDeleted);
+                await _db.SaveChangesAsync();
+            }
+        }
     }
 }

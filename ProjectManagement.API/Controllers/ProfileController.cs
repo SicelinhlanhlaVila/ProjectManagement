@@ -27,7 +27,7 @@ namespace ProjectManagement.API.Controllers
         /// Gets the profile
         /// </summary>
         /// <returns></returns>
-        [Authorize]
+        //[Authorize]
         [HttpGet]
         public async Task<ActionResult<Profile>> Get()
         {

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using ProjectManagement.API.Models;
 using ProjectManagement.API.Services;
 
@@ -62,6 +63,20 @@ namespace ProjectManagement.API.Controllers
 
             await _projectsService.EditProject(id, update);
            
+            return NoContent();
+        }
+
+        /// <summary>
+        /// Deletes an existing project
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [Authorize]
+        [HttpDelete("{id:int}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            await _projectsService.DeleteProject(id);
+
             return NoContent();
         }
     }

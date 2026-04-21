@@ -27,5 +27,12 @@ namespace ProjectManagement.API.Services
         /// <param name="project"></param>
         /// <returns></returns>
         Task EditProject(int id, Project project);
+
+        /// <summary>
+        /// Delete
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        Task DeleteProject(int id);
     }
 }
