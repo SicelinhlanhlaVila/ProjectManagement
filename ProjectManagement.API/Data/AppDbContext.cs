@@ -61,9 +61,15 @@ namespace ProjectManagement.API.Data
             {
                 db.Projects.AddRange(new[]
                 {
-                    new Project { Id = 1, Name = "Website Revamp", Description = "Frontend and backend refresh", IsFinished = false, Featured = false,Tech = ["blazor","C#"] },
+                    new Project { Id = 1, Name = "Website Revamp", Description = "Frontend and backend refresh", IsFinished = false, Featured = false,Tech = ["blazor","C#","SQL"] },
                     new Project { Id = 2, Name = "CI/CD Pipeline", Description = "Automate builds and deploys", IsFinished = false , Featured = true,Tech = ["c#"]},
-                    new Project { Id = 3, Name = "Portfolio", Description = "Personal portfolio built with React.", IsFinished = false , Featured = true,Tech = ["React", "TypeScript", "Vite"]},
+                    new Project { Id = 4, Name = "Skills Calculator", Description = "Gather around how many skills are being used within multiple teams", IsFinished = true , Featured = true,Tech = ["React", "TypeScript", "Vite","C#"]},
+                    new Project { Id = 5, Name = "student profiler", Description = "Student profiler app.", IsFinished = false , Featured = true,Tech = ["React", "TypeScript", "C#"]},
+                    new Project { Id = 6, Name = "Betsa", Description = "bets overview app.", IsFinished = true , Featured = false,Tech = ["Java", "Blazor"]},
+                    new Project { Id = 7, Name = "myShopify", Description = "we'll be doing some small shopping here.", IsFinished = false , Featured = false,Tech = ["Angular", "TypeScript", "c#"]},
+                    new Project { Id = 8, Name = "Roborta", Description = "programming a bot to be my son's entertainment.", IsFinished = true , Featured = true,Tech = ["Python"]},
+                    new Project { Id = 9, Name = "ShopifyBO", Description = "Dashboard to monitor myShopify.", IsFinished = true , Featured = false,Tech = ["Blazor", "C#","SQL"]},
+                    new Project { Id = 10, Name = "Portfolio", Description = "Personal portfolio.", IsFinished = false , Featured = true,Tech = ["MudBlazor", "c#"]},
                 });
             }
 

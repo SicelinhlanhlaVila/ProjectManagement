@@ -58,6 +58,7 @@ builder.Services.AddSwaggerGen(options =>
     options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename));
 });
 
+builder.Services.AddTransient<IDashboardService, DashboardService>();
 builder.Services.AddTransient<ISkillService,SkillService>();
 builder.Services.AddTransient<IProfileService, ProfileService>();
 builder.Services.AddTransient<IProjectsService, ProjectService>();
