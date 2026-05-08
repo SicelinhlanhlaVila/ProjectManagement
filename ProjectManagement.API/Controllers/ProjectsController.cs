@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using ProjectManagement.API.DTOs;
 using ProjectManagement.API.Models;
 using ProjectManagement.API.Services;
 
@@ -62,7 +63,7 @@ namespace ProjectManagement.API.Controllers
                 return BadRequest(new { error = "Id in URL and body must match." });
 
             await _projectsService.EditProject(id, update);
-           
+
             return NoContent();
         }
 
@@ -78,6 +79,31 @@ namespace ProjectManagement.API.Controllers
             await _projectsService.DeleteProject(id);
 
             return NoContent();
+        }
+
+        /// <summary>
+        /// Completes a project
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [Authorize]
+        [HttpPut("complete/{id:int}")]
+        public async Task<IActionResult> CompleteProject(int id)
+        {
+            await _projectsService.CompleteProject(id);
+            return NoContent();
+        }
+
+        /// <summary>
+        /// Gets the full details of the project
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpGet("details/{id:int}")]
+        public async Task<ProjectDetailsDto> Details(int id)
+        {
+           var projectDetails = await _projectsService.GetFullProjectDetails(id);
+            return projectDetails;
         }
     }
 }

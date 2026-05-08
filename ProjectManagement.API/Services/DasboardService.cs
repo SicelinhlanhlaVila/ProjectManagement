@@ -2,6 +2,7 @@
 using ProjectManagement.API.Data;
 using ProjectManagement.API.DTOs;
 using ProjectManagement.API.Models;
+using System.Globalization;
 using System.Linq.Expressions;
 
 namespace ProjectManagement.API.Services
@@ -63,6 +64,29 @@ namespace ProjectManagement.API.Services
             return techUsage;
         }
 
+        /// <summary>
+        /// Gets recently completed projects
+        /// </summary>
+        /// <returns></returns>
+        public async Task<List<RecentlyCompletedProjectsDto>> GetRecentlyCompletedProjects()
+        {
+            var projects = await _db.Projects.ToListAsync();
+
+            var recentProjects = projects
+                                 .Where(p => p.IsFinished)
+                                 .OrderByDescending(p => p.EndDate)
+                                 .Take(3)
+                                 .Select(p => new RecentlyCompletedProjectsDto
+                                 {
+                                     ProjectId = p.Id,
+                                     ProjectName = p.Name,
+                                     Description = p.Description,
+                                     CompletedDate = p.EndDate.ToString("dd MMMM yyyy", CultureInfo.InvariantCulture)
+                                 })
+                                 .ToList();
+
+            return recentProjects;
+        }
 
         private async Task<Tuple<int,int>> GetProjectsCount()
         {

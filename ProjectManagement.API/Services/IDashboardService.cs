@@ -18,5 +18,11 @@ namespace ProjectManagement.API.Services
         /// </summary>
         /// <returns></returns>
         Task<List<TechUsageDto>> GetTechUsage();
+
+        /// <summary>
+        /// Gets the projects that were recently completed
+        /// </summary>
+        /// <returns></returns>
+        Task<List<RecentlyCompletedProjectsDto>> GetRecentlyCompletedProjects();
     }
 }

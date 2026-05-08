@@ -44,5 +44,16 @@ namespace ProjectManagement.API.Controllers
             var techUsage = await _dashboardService.GetTechUsage();
             return Ok(techUsage);
         }
+
+        /// <summary>
+        /// Gets recently completed projects
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("GetRecentlyCompleted")]
+        public async Task<ActionResult<IEnumerable<RecentlyCompletedProjectsDto>>> GetRecentlyCompletedProjects()
+        {
+            var recentProjects = await _dashboardService.GetRecentlyCompletedProjects();
+            return Ok(recentProjects);
+        }
     }
 }

@@ -1,4 +1,5 @@
-﻿using ProjectManagement.API.Models;
+﻿using ProjectManagement.API.DTOs;
+using ProjectManagement.API.Models;
 
 namespace ProjectManagement.API.Services
 {
@@ -34,5 +35,19 @@ namespace ProjectManagement.API.Services
         /// <param name="id"></param>
         /// <returns></returns>
         Task DeleteProject(int id);
+
+        /// <summary>
+        /// complete a project
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        Task CompleteProject(int id);
+
+        /// <summary>
+        /// Gets full project details
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>ProjectDetailsDto</returns>
+        Task<ProjectDetailsDto> GetFullProjectDetails(int id);
     }
 }

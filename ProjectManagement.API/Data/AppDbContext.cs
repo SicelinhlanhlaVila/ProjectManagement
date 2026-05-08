@@ -49,28 +49,26 @@ namespace ProjectManagement.API.Data
         {
             if (!db.Skills.Any())
             {
-                db.Skills.AddRange(new[]
-                {
+                db.Skills.AddRange(
                     new Skill { Id = 1, Name = "C#" },
                     new Skill { Id = 2, Name = ".NET" },
                     new Skill { Id = 3, Name = "SQL" }
-                });
+                );
             }
 
             if (!db.Projects.Any())
             {
-                db.Projects.AddRange(new[]
-                {
-                    new Project { Id = 1, Name = "Website Revamp", Description = "Frontend and backend refresh", IsFinished = false, Featured = false,Tech = ["blazor","C#","SQL"] },
-                    new Project { Id = 2, Name = "CI/CD Pipeline", Description = "Automate builds and deploys", IsFinished = false , Featured = true,Tech = ["c#"]},
-                    new Project { Id = 4, Name = "Skills Calculator", Description = "Gather around how many skills are being used within multiple teams", IsFinished = true , Featured = true,Tech = ["React", "TypeScript", "Vite","C#"]},
-                    new Project { Id = 5, Name = "student profiler", Description = "Student profiler app.", IsFinished = false , Featured = true,Tech = ["React", "TypeScript", "C#"]},
-                    new Project { Id = 6, Name = "Betsa", Description = "bets overview app.", IsFinished = true , Featured = false,Tech = ["Java", "Blazor"]},
-                    new Project { Id = 7, Name = "myShopify", Description = "we'll be doing some small shopping here.", IsFinished = false , Featured = false,Tech = ["Angular", "TypeScript", "c#"]},
-                    new Project { Id = 8, Name = "Roborta", Description = "programming a bot to be my son's entertainment.", IsFinished = true , Featured = true,Tech = ["Python"]},
-                    new Project { Id = 9, Name = "ShopifyBO", Description = "Dashboard to monitor myShopify.", IsFinished = true , Featured = false,Tech = ["Blazor", "C#","SQL"]},
-                    new Project { Id = 10, Name = "Portfolio", Description = "Personal portfolio.", IsFinished = false , Featured = true,Tech = ["MudBlazor", "c#"]},
-                });
+                db.Projects.AddRange(
+                    new Project { Id = 1, Name = "Website Revamp", Description = "Frontend and backend refresh", IsFinished = false, Featured = false,Tech = ["blazor","C#","SQL"] ,StartDate = DateTime.Now.AddMonths(-3),EndDate = DateTime.Now.AddMonths(2)},
+                    new Project { Id = 2, Name = "CI/CD Pipeline", Description = "Automate builds and deploys", IsFinished = false , Featured = true,Tech = ["c#"],StartDate = DateTime.Now.AddMonths(-5),EndDate = DateTime.Now.AddMonths(1)},
+                    new Project { Id = 4, Name = "Skills Calculator", Description = "Gather around how many skills are being used within multiple teams", IsFinished = true , Featured = true,Tech = ["React", "TypeScript", "Vite","C#"],StartDate = DateTime.Now.AddMonths(-2),EndDate = DateTime.Now.AddDays(-2)},
+                    new Project { Id = 5, Name = "student profiler", Description = "Student profiler app.", IsFinished = false , Featured = true,Tech = ["React", "TypeScript", "C#"],StartDate = DateTime.Now.AddMonths(-3),EndDate = DateTime.Now.AddMonths(2)},
+                    new Project { Id = 6, Name = "Betsa", Description = "bets overview app.", IsFinished = true , Featured = false,Tech = ["Java", "Blazor"],StartDate = DateTime.Now.AddMonths(-4),EndDate = DateTime.Now.AddMonths(-2)},
+                    new Project { Id = 7, Name = "myShopify", Description = "we'll be doing some small shopping here.", IsFinished = false , Featured = false,Tech = ["Angular", "TypeScript", "c#"],StartDate = DateTime.Now.AddMonths(-3),EndDate = DateTime.Now.AddMonths(3)},
+                    new Project { Id = 8, Name = "Roborta", Description = "programming a bot to be my son's entertainment.", IsFinished = true , Featured = true,Tech = ["Python"],StartDate = DateTime.Now.AddMonths(-3),EndDate = DateTime.Now.AddDays(-9)},
+                    new Project { Id = 9, Name = "ShopifyBO", Description = "Dashboard to monitor myShopify.", IsFinished = true , Featured = false,Tech = ["Blazor", "C#","SQL"],StartDate = DateTime.Now.AddMonths(-1),EndDate = DateTime.Now.AddDays(-4)},
+                    new Project { Id = 10, Name = "Portfolio", Description = "Personal portfolio.", IsFinished = false , Featured = true,Tech = ["MudBlazor", "c#"],StartDate = DateTime.Now.AddMonths(-3),EndDate = DateTime.Now.AddMonths(2)}
+                );
             }
 
             if (!db.Profiles.Any())

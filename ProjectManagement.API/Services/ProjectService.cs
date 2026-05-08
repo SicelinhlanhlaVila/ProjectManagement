@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ProjectManagement.API.Data;
+using ProjectManagement.API.DTOs;
 using ProjectManagement.API.Models;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
@@ -28,6 +29,9 @@ namespace ProjectManagement.API.Services
         /// <returns></returns>
         public async Task<Project> AddProject(Project project)
         {
+            project.StartDate = DateTime.Now;
+            project.EndDate = DateTime.Now.AddMonths(1);
+            project.IsFinished = false;
             _db.Projects.Add(project);
             await _db.SaveChangesAsync();
             return project;
@@ -82,6 +86,83 @@ namespace ProjectManagement.API.Services
                 _db.Remove(toBeDeleted);
                 await _db.SaveChangesAsync();
             }
+        }
+
+        /// <summary>
+        /// Completes a project
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        /// <exception cref="Exception"></exception>
+        public async Task CompleteProject(int id)
+        {
+            var project = await _db.Projects.FindAsync(id);
+            if (project == null)
+                throw new Exception("project does not exist");
+            else
+            {
+                project.IsFinished = true;
+                project.EndDate = DateTime.Now;
+                await _db.SaveChangesAsync();
+            }
+        }
+
+        /// <summary>
+        /// Gets full project details
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>ProjectDetailsDto</returns>
+        public async Task<ProjectDetailsDto> GetFullProjectDetails(int id)
+        {
+            var project = await _db.Projects.FindAsync(id);
+
+            if (project == null)
+                throw new Exception("project does not exist");
+
+            var details = CreateDetailsParagraph(project.StartDate,project.EndDate,project.Tech,project.IsFinished);
+
+            var projectDetails = new ProjectDetailsDto
+            {
+                Id = project.Id,
+                Name = project.Name,
+                Description = project.Description,
+                Featured = project.Featured,
+                Tech = project.Tech,
+                Details = details
+            };
+
+            return projectDetails;
+        }
+
+        /// <summary>
+        /// private method to build string
+        /// </summary>
+        /// <param name="startDate"></param>
+        /// <param name="endDate"></param>
+        /// <param name="tech"></param>
+        /// <param name="isFinished"></param>
+        /// <returns></returns>
+        private static string CreateDetailsParagraph(DateTime startDate, DateTime endDate, string[] tech,bool isFinished)
+        {
+            var calcDateDif = (endDate - startDate).Days;
+            string completedText = string.Empty;
+            string techText = string.Empty;
+
+            if (tech != null && tech.Length == 1)
+                techText = $"with only just {tech[0]}";
+            else
+                techText = $"with more than one technology.";
+
+            if (isFinished)
+                completedText = $"completed in {calcDateDif} days ";
+            else
+                completedText = $"and is set to complete in {calcDateDif} days ";
+
+            var details = $"Started working on it on {startDate.ToShortDateString()} " +
+                          completedText +
+                          techText;
+
+            return details;
         }
     }
 }

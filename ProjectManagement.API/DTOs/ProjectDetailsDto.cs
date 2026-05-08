@@ -1,14 +1,11 @@
-﻿namespace ProjectManagement.API.Models
+﻿namespace ProjectManagement.API.DTOs
 {
-    /// <summary>
-    /// Project class
-    /// </summary>
-    public class Project
+    public class ProjectDetailsDto
     {
         /// <summary>
         /// gets or sets the primary identifier
         /// </summary>
-        public int Id { get; set; } 
+        public int Id { get; set; }
 
         /// <summary>
         /// gets or sets the name
@@ -26,11 +23,6 @@
         public bool Featured { get; set; } = false;
 
         /// <summary>
-        /// checks the state of a project
-        /// </summary>
-        public bool IsFinished { get; set; } = false;
-
-        /// <summary>
         /// list of all the tech used in the project
         /// </summary>
         public string[] Tech { get; set; }
@@ -40,14 +32,5 @@
         /// </summary>
         public string? Details { get; set; }
 
-        /// <summary>
-        /// When the project starts
-        /// </summary>
-        public DateTime StartDate { get; set; }
-
-        /// <summary>
-        /// When the project ends
-        /// </summary>
-        public DateTime EndDate { get; set; }
     }
 }
